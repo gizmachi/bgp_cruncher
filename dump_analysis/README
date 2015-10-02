@@ -1,0 +1,5 @@
+How to get it working:
+
+sudo apt-get install python-dpkt
+install pybgpdump
+export PATH=$PATH:/home/netsec/hijack/bgp/libbgpdump-1.4.99.13

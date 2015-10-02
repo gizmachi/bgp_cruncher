@@ -1,0 +1,15 @@
+# install libbgpdump
+# (and fix MAX_PREFIXES=1000 bug)
+#   from https://bitbucket.org/ripencc/bgpdump/wiki/Home
+
+ripencc-bgpdump$ sed -i 's/#define MAX_PREFIXES 1000/#define MAX_PREFIXES 10000/g' bgpdump_attr.h 
+ripencc-bgpdump$ ./bootstrap.sh
+ripencc-bgpdump$ ./configure -prefix=/usr
+ripencc-bgpdump$ make
+ripencc-bgpdump$ sudo make install
+
+# generate ctypes wrappers, and fix shortint bug
+# (will be imported by tree.py)
+#    from http://code.google.com/p/ctypesgen/
+ctypesgen$ ./ctypesgen.py -lbgpdump /usr/include/bgpdump_*.h -o libbgpdump.py
+ctypesgen$ sed -i 's/u_int16_t = c_uint/u_int16_t = c_ushort/g' libbgpdump.py
